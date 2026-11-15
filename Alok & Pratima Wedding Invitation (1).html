@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शुभ विवाह निमंत्रण - आलोक संग प्रतिमा</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Royal Hindi & English Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Noto+Serif+Devanagari:wght@400;600;700;800&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --royal-maroon: #5e0b15;
+            --deep-crimson: #800f2f;
+            --royal-gold: #d4af37;
+            --light-gold: #f3e5ab;
+            --cream-bg: #fffbf2;
+            --soft-peach: #fdf2e9;
+        }
+
+        body {
+            font-family: 'Noto Serif Devanagari', serif;
+            background-color: var(--cream-bg);
+            color: #3b0d11;
+            overflow-x: hidden;
+            background-image: radial-gradient(#d4af37 0.75px, transparent 0.75px), radial-gradient(#d4af37 0.75px, #fffbf2 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .font-rozha {
+            font-family: 'Rozha One', serif;
+        }
+
+        .font-tiro {
+            font-family: 'Tiro Devanagari Hindi', serif;
+        }
+
+        .royal-gradient {
+            background: linear-gradient(135deg, #4a0710 0%, #7a1024 50%, #4a0710 100%);
+        }
+
+        .gold-text {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .gold-border {
+            border: 2px solid #d4af37;
+            box-shadow: 0 10px 30px -5px rgba(94, 11, 21, 0.15), inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-ornament {
+            position: relative;
+        }
+
+        .card-ornament::before, .card-ornament::after {
+            content: '❖';
+            color: #d4af37;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+
+        /* Floating Petals Animation */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            top: -10%;
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+            opacity: 0.75;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) translateX(25px);
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(-25px);
+                opacity: 0;
+            }
+        }
+
+        /* Slow Mandala Spin */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .mandala-spin {
+            animation: spinSlow 45s linear infinite;
+        }
+
+        /* Envelope Curtain Overlay */
+        #welcome-curtain {
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+        #welcome-curtain.opened {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Pulse Button */
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            50% { box-shadow: 0 0 0 14px rgba(212, 175, 55, 0); }
+        }
+        .btn-pulse {
+            animation: pulseGold 2s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fffbf2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #800f2f;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-red-950">
+
+    <!-- Falling Marigold & Rose Petals Container -->
+    <div id="petals-container"></div>
+
+    <!-- Welcome Envelope / Curtain Screen -->
+    <div id="welcome-curtain" class="fixed inset-0 z-50 royal-gradient flex flex-col items-center justify-center p-6 text-center text-amber-100">
+        <!-- Decorative Corner Borders -->
+        <div class="absolute inset-3 sm:inset-6 border-2 border-amber-400/50 rounded-2xl pointer-events-none"></div>
+        <div class="absolute inset-5 sm:inset-8 border border-amber-300/30 rounded-xl pointer-events-none"></div>
+
+        <!-- Ganesha SVG Emblem -->
+        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-amber-500/10 border-2 border-amber-400 flex items-center justify-center mb-4 shadow-lg">
+            <svg class="w-12 h-12 sm:w-14 sm:h-14 text-amber-300" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 12c-6 0-11 4-12 10-7 2-12 8-12 16 0 7 4 13 10 15-2 4-3 9-1 14 2 6 8 10 15 10 5 0 9-2 12-6 2-3 2-7 0-9-2-2-5-2-7 0-1 1-1 3 0 4-2 2-5 2-7 0-3-2-4-7-2-10 2-3 5-5 9-5 7 0 13-6 13-13 0-8-5-14-12-16-1-6-6-10-12-10zm0 8c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5zm-16 18c0-4 3-7 7-7h18c4 0 7 3 7 7 0 4-3 7-7 7H41c-4 0-7-3-7-7zm16 44c-12 0-22 4-22 8h44c0-4-10-8-22-8z"/>
+            </svg>
+        </div>
+
+        <p class="text-amber-300 text-sm sm:text-base tracking-widest mb-2 font-semibold">|| श्री गणेशाय नमः ||</p>
+        <h1 class="font-rozha text-3xl sm:text-5xl gold-text mb-3 leading-snug">शाही विवाह निमंत्रण</h1>
+        
+        <div class="my-4 px-6 py-4 rounded-2xl bg-black/25 border border-amber-400/40 max-w-md w-full backdrop-blur-sm">
+            <p class="font-rozha text-2xl sm:text-3xl text-amber-200">चिरं. आलोक कुमार</p>
+            <p class="text-amber-400 text-sm my-1 font-bold">❖ संग ❖</p>
+            <p class="font-rozha text-2xl sm:text-3xl text-amber-200">आयु. कुमारी प्रतिमा</p>
+            <p class="text-xs sm:text-sm text-amber-100/80 mt-3 border-t border-amber-400/20 pt-2">
+                सोमवार, 07 दिसंबर 2026
+            </p>
+        </div>
+
+        <p class="text-xs sm:text-sm text-amber-200/90 max-w-sm mb-6 font-tiro">
+            प्रेषक: श्री कमलेश सिंह (ग्राम - बहैरा, कैमूर) एवं समस्त पटेल परिवार
+        </p>
+
+        <button onclick="openInvitation()" class="btn-pulse bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-red-950 font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-2xl hover:scale-105 transition transform flex items-center gap-3 cursor-pointer">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>निमंत्रण पत्र खोलें</span>
+        </button>
+    </div>
+
+    <!-- Floating Audio Control & Top Bar -->
+    <div class="fixed top-4 right-4 z-40 flex items-center gap-2">
+        <button id="music-toggle" onclick="toggleAudio()" title="मंगल ध्वनि चालू/बंद करें" class="w-11 h-11 rounded-full royal-gradient text-amber-300 border-2 border-amber-400 shadow-lg flex items-center justify-center hover:scale-105 transition cursor-pointer">
+            <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <main class="max-w-3xl mx-auto px-3 sm:px-6 pt-6 pb-28">
+
+        <!-- SECTION 1: HERO & BLESSINGS -->
+        <section class="relative royal-gradient text-amber-50 rounded-3xl p-6 sm:p-10 text-center shadow-2xl border-2 border-amber-400 overflow-hidden mb-8">
+            <!-- Rotating Mandala Background -->
+            <div class="absolute -top-24 -left-24 w-64 h-64 opacity-10 mandala-spin pointer-events-none">
+                <svg viewBox="0 0 200 200" fill="none" stroke="#fcd34d" stroke-width="2">
+                    <circle cx="100" cy="100" r="90" stroke-dasharray="6 4"/>
+                    <circle cx="100" cy="100" r="70"/>
+                    <circle cx="100" cy="100" r="50" stroke-dasharray="3 3"/>
+                    <polygon points="100,10 125,75 190,100 125,125 100,190 75,125 10,100 75,75"/>
+                    <polygon points="100,10 125,75 190,100 125,125 100,190 75,125 10,100 75,75" transform="rotate(45 100 100)"/>
+                </svg>
+            </div>
+            <div class="absolute -bottom-24 -right-24 w-64 h-64 opacity-10 mandala-spin pointer-events-none">
+                <svg viewBox="0 0 200 200" fill="none" stroke="#fcd34d" stroke-width="2">
+                    <circle cx="100" cy="100" r="90" stroke-dasharray="6 4"/>
+                    <circle cx="100" cy="100" r="70"/>
+                    <polygon points="100,10 125,75 190,100 125,125 100,190 75,125 10,100 75,75"/>
+                </svg>
+            </div>
+
+            <!-- Sacred Header -->
+            <div class="relative z-10">
+                <p class="text-amber-300 font-bold tracking-widest text-sm sm:text-base mb-3">|| श्री गणेशाय नमः ||</p>
+                
+                <!-- Shloka -->
+                <div class="bg-black/25 border border-amber-400/30 rounded-2xl p-4 mb-5 max-w-xl mx-auto">
+                    <p class="font-tiro text-amber-200 text-sm sm:text-base leading-relaxed">
+                        "विघ्न हरण मंगल करण, श्री गणपति महाराज।<br>
+                        प्रथम निमंत्रण आपको, पूरण करियो सब काज।।"
+                    </p>
+                </div>
+
+                <p class="text-amber-100/95 text-xs sm:text-sm mb-2">
+                    बाबा विश्वनाथ जी एवं माँ मुण्डेश्वरी की असीम अनुकम्पा से
+                </p>
+                <div class="inline-block px-4 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 text-xs sm:text-sm font-semibold mb-6">
+                    स्नेही स्वजन, सादर आमंत्रण
+                </div>
+
+                <!-- Couple Royal Crest -->
+                <div class="my-2">
+                    <h2 class="font-rozha text-4xl sm:text-6xl gold-text py-1">आलोक कुमार</h2>
+                    <div class="flex items-center justify-center gap-3 my-2">
+                        <span class="h-[1px] w-12 sm:w-20 bg-amber-400/60"></span>
+                        <span class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400 flex items-center justify-center font-rozha text-amber-300 text-lg">संग</span>
+                        <span class="h-[1px] w-12 sm:w-20 bg-amber-400/60"></span>
+                    </div>
+                    <h2 class="font-rozha text-4xl sm:text-6xl gold-text py-1">कुमारी प्रतिमा</h2>
+                </div>
+
+                <!-- Wedding Date Pill -->
+                <div class="mt-6 inline-flex flex-wrap items-center justify-center gap-2 bg-amber-100 text-red-950 px-6 py-2.5 rounded-full font-bold text-sm sm:text-base shadow-lg border-2 border-amber-400">
+                    <i class="fa-regular fa-calendar-check text-red-800"></i>
+                    <span>शुभ विवाह: 07 दिसंबर 2026 (सोमवार)</span>
+                </div>
+
+                <!-- Live Countdown Timer -->
+                <div class="mt-7 pt-6 border-t border-amber-400/30">
+                    <p class="text-xs uppercase tracking-widest text-amber-300 mb-3">शुभ विवाह में शेष समय</p>
+                    <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto">
+                        <div class="bg-black/30 border border-amber-400/40 rounded-xl p-2.5 sm:p-3">
+                            <span id="days" class="block font-rozha text-2xl sm:text-3xl text-amber-300">00</span>
+                            <span class="text-[11px] sm:text-xs text-amber-100">दिन</span>
+                        </div>
+                        <div class="bg-black/30 border border-amber-400/40 rounded-xl p-2.5 sm:p-3">
+                            <span id="hours" class="block font-rozha text-2xl sm:text-3xl text-amber-300">00</span>
+                            <span class="text-[11px] sm:text-xs text-amber-100">घंटे</span>
+                        </div>
+                        <div class="bg-black/30 border border-amber-400/40 rounded-xl p-2.5 sm:p-3">
+                            <span id="minutes" class="block font-rozha text-2xl sm:text-3xl text-amber-300">00</span>
+                            <span class="text-[11px] sm:text-xs text-amber-100">मिनट</span>
+                        </div>
+                        <div class="bg-black/30 border border-amber-400/40 rounded-xl p-2.5 sm:p-3">
+                            <span id="seconds" class="block font-rozha text-2xl sm:text-3xl text-amber-300">00</span>
+                            <span class="text-[11px] sm:text-xs text-amber-100">सेकंड</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BRIDE & GROOM INTRODUCTION (वर-वधू परिचय) -->
+        <section class="bg-white/95 rounded-3xl p-6 sm:p-8 gold-border mb-8 relative overflow-hidden">
+            <div class="text-center mb-6">
+                <h3 class="font-rozha text-2xl sm:text-3xl text-red-900 card-ornament">परिणयोत्सव परिचय</h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mt-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <!-- Groom Card -->
+                <div class="bg-gradient-to-b from-amber-50 to-orange-50/60 border border-amber-300 rounded-2xl p-5 text-center shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-red-900 text-amber-200 text-xs font-bold mb-3">
+                            वर (हृदयांश)
+                        </span>
+                        <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-red-900/10 border-2 border-amber-500 flex items-center justify-center text-red-900 text-2xl">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <h4 class="font-rozha text-2xl sm:text-3xl text-red-950 mb-3">चिरं. आलोक कुमार</h4>
+                        <div class="text-sm text-stone-800 space-y-2 leading-relaxed">
+                            <p><strong class="text-red-900">सुपौत्र:</strong> चाँदमुनी कुंवर एवं स्व. शिवमुनी सिंह</p>
+                            <p><strong class="text-red-900">सुपुत्र:</strong> श्रीमती ललिता देवी एवं श्री कमलेश सिंह</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-amber-300/70 text-xs sm:text-sm text-red-950 font-semibold">
+                        <i class="fa-solid fa-location-dot text-red-700 mr-1"></i>
+                        ग्राम - बहैरा, पो० - नसेज, थाना - कुदरा, जिला - कैमूर (बिहार)
+                    </div>
+                </div>
+
+                <!-- Bride Card -->
+                <div class="bg-gradient-to-b from-rose-50 to-amber-50/60 border border-amber-300 rounded-2xl p-5 text-center shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-red-900 text-amber-200 text-xs font-bold mb-3">
+                            वधू (हृदयकणिका)
+                        </span>
+                        <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-red-900/10 border-2 border-amber-500 flex items-center justify-center text-red-900 text-2xl">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <h4 class="font-rozha text-2xl sm:text-3xl text-red-950 mb-3">आयु. कुमारी प्रतिमा</h4>
+                        <div class="text-sm text-stone-800 space-y-2 leading-relaxed">
+                            <p><strong class="text-red-900">सुपौत्री:</strong> स्व. मैनी देवी एवं स्व. चन्द्रधर सिंह</p>
+                            <p><strong class="text-red-900">सुपुत्री:</strong> श्रीमती गीता देवी एवं श्री दीनदयाल सिंह</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-amber-300/70 text-xs sm:text-sm text-red-950 font-semibold">
+                        <i class="fa-solid fa-location-dot text-red-700 mr-1"></i>
+                        ग्राम - ढुढ़िया, पो० - गोडऊर, थाना - करीमुद्दीनपुर, जिला - गाजीपुर (उ.प्र.)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heartfelt Invitation Verse -->
+            <div class="mt-6 bg-red-950/5 border-l-4 border-r-4 border-red-900 rounded-2xl p-4 sm:p-5 text-center">
+                <p class="font-tiro text-red-950 text-sm sm:text-base leading-relaxed font-medium">
+                    "के पाणिग्रहण संस्कार (परिणयोत्सव) की मधुर बेला में आपका अभिनन्दन है। सात फेरों के साक्षी उन खूबसूरत तथा शगुन के इन यादगार पलों के लिए आमंत्रण स्वीकार कर वर-कन्या को शुभाशीष प्रदान कर हमें अनुगृहीत करें।"
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: AUSPICIOUS EVENTS (मांगलिक कार्यक्रम) -->
+        <section class="bg-white/95 rounded-3xl p-6 sm:p-8 gold-border mb-8">
+            <div class="text-center mb-6">
+                <h3 class="font-rozha text-2xl sm:text-3xl text-red-900 card-ornament">मांगलिक कार्यक्रम</h3>
+                <p class="text-xs sm:text-sm text-stone-600 mt-1">शुभ तिथियाँ एवं वैवाहिक रस्में</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Event 1: Tilak -->
+                <div class="rounded-2xl p-5 bg-gradient-to-br from-amber-50 to-yellow-50 border-2 border-amber-300 shadow-sm hover:shadow-md transition relative overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-0.5 rounded-full">प्रथम रस्म</span>
+                            <h4 class="font-rozha text-2xl text-red-900 mt-2">शुभ तिलकोत्सव</h4>
+                            <p class="text-base font-bold text-stone-800 mt-1">02 दिसंबर 2026</p>
+                            <p class="text-sm text-red-800 font-semibold">दिन - बुधवार</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-red-900 text-amber-300 flex items-center justify-center text-xl shadow">
+                            <i class="fa-solid fa-hands-praying"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-700 mt-3 pt-2 border-t border-amber-200">
+                        <i class="fa-solid fa-house-chimney text-red-800 mr-1"></i> स्थान: निवास स्थान - ग्राम बहैरा
+                    </p>
+                </div>
+
+                <!-- Event 2: Haldi -->
+                <div class="rounded-2xl p-5 bg-gradient-to-br from-yellow-100/70 to-amber-50 border-2 border-yellow-400 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-yellow-900 bg-yellow-300/70 px-2.5 py-0.5 rounded-full">मंगल स्नान</span>
+                            <h4 class="font-rozha text-2xl text-red-900 mt-2">शुभ हल्दी</h4>
+                            <p class="text-base font-bold text-stone-800 mt-1">04 दिसंबर 2026</p>
+                            <p class="text-sm text-red-800 font-semibold">दिन - शुक्रवार</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-yellow-600 text-white flex items-center justify-center text-xl shadow">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-700 mt-3 pt-2 border-t border-yellow-300/70">
+                        <i class="fa-solid fa-house-chimney text-yellow-800 mr-1"></i> स्थान: निवास स्थान - ग्राम बहैरा
+                    </p>
+                </div>
+
+                <!-- Event 3: Wedding -->
+                <div class="rounded-2xl p-5 royal-gradient text-amber-50 border-2 border-amber-400 shadow-lg hover:shadow-xl transition">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-red-950 bg-amber-300 px-2.5 py-0.5 rounded-full">मुख्य समारोह</span>
+                            <h4 class="font-rozha text-2xl text-amber-300 mt-2">शुभ विवाह</h4>
+                            <p class="text-base font-bold text-white mt-1">07 दिसंबर 2026</p>
+                            <p class="text-sm text-amber-200 font-semibold">दिन - सोमवार</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-400 text-red-950 flex items-center justify-center text-xl shadow">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-amber-100/90 mt-3 pt-2 border-t border-amber-400/30">
+                        <i class="fa-solid fa-route text-amber-300 mr-1"></i> बरात प्रस्थान: ग्राम ढुढ़िया, गाजीपुर (उ.प्र.)
+                    </p>
+                </div>
+
+                <!-- Event 4: Vadhu Aagman -->
+                <div class="rounded-2xl p-5 bg-gradient-to-br from-rose-50 to-amber-50 border-2 border-rose-300 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-rose-900 bg-rose-200/80 px-2.5 py-0.5 rounded-full">गृह प्रवेश</span>
+                            <h4 class="font-rozha text-2xl text-red-900 mt-2">वधू आगमन</h4>
+                            <p class="text-base font-bold text-stone-800 mt-1">08 दिसंबर 2026</p>
+                            <p class="text-sm text-red-800 font-semibold">दिन - मंगलवार</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-rose-800 text-amber-200 flex items-center justify-center text-xl shadow">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-700 mt-3 pt-2 border-t border-rose-200">
+                        <i class="fa-solid fa-house-chimney text-rose-800 mr-1"></i> स्थान: निवास स्थान - ग्राम बहैरा
+                    </p>
+                </div>
+            </div>
+
+            <!-- Special Note Box (विशेष नोट) -->
+            <div class="mt-6 bg-amber-50 border-2 border-dashed border-red-800 rounded-2xl p-5">
+                <div class="flex items-center gap-2 text-red-900 font-bold text-base mb-2">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>विशेष नोट एवं बरात प्रस्थान विवरण:</span>
+                </div>
+                <ul class="text-sm text-stone-800 space-y-2 leading-relaxed list-disc list-inside">
+                    <li>
+                        <strong>बरात प्रस्थान:</strong> बरात हमारे निवास स्थान <strong>ग्राम बहैरा</strong> से दिनांक 07 दिसंबर 2026 को <strong>दोपहर 2:00 बजे</strong> अपने निजी वाहन द्वारा <strong>ढुढ़िया, गाजीपुर (उ.प्र.)</strong> के लिए प्रस्थान करेगी।
+                    </li>
+                    <li>
+                        <strong>तिलकोत्सव स्थल:</strong> समस्त तिलकोत्सव कार्यक्रम हमारे निवास स्थान - <strong>ग्राम बहैरा</strong> से सम्पन्न होगा।
+                    </li>
+                </ul>
+
+                <!-- Google Map Location Button -->
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bahera+Kudra+Kaimur+Bihar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-900 hover:bg-red-800 text-amber-100 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow transition">
+                        <i class="fa-solid fa-map-location-dot text-amber-300"></i>
+                        <span>निवास स्थान मैप देखें (ग्राम बहैरा, कैमूर)</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Dhudhiya+Karimuddinpur+Ghazipur+Uttar+Pradesh" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow transition">
+                        <i class="fa-solid fa-location-arrow text-amber-200"></i>
+                        <span>विवाह स्थल (ढुढ़िया, गाजीपुर)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Baal Manuhar (बाल मनुहार) -->
+            <div class="mt-6 bg-gradient-to-r from-pink-50 via-amber-50 to-pink-50 border border-pink-300 rounded-2xl p-5 text-center shadow-inner">
+                <span class="inline-block bg-pink-700 text-white text-xs font-bold px-3 py-1 rounded-full mb-2">
+                    <i class="fa-solid fa-child-reaching mr-1"></i> बाल मनुहार
+                </span>
+                <p class="font-tiro text-red-950 text-base sm:text-lg italic leading-relaxed">
+                    "हल्दी है चंदन है रिश्तों का बंधन है,<br>
+                    मेरे चाचू एवं मामू की शादी में आपका अभिनंदन है।।"
+                </p>
+                <p class="mt-2 font-bold text-pink-900 text-sm sm:text-base">
+                    :- नंदनी, शिवाक्षी, रौनित, रिशांक
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FAMILY & CONTACTS (परिवार एवं प्रेषक) -->
+        <section class="bg-white/95 rounded-3xl p-6 sm:p-8 gold-border mb-6">
+            <div class="text-center mb-6">
+                <h3 class="font-rozha text-2xl sm:text-3xl text-red-900 card-ornament">स्नेही परिवार एवं प्रेषक</h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mt-1"></div>
+            </div>
+
+            <!-- Presak & Direct Call/WhatsApp -->
+            <div class="royal-gradient text-amber-50 rounded-2xl p-5 sm:p-6 text-center mb-6 shadow-md border border-amber-400">
+                <span class="text-xs uppercase tracking-widest bg-amber-400 text-red-950 font-bold px-3 py-1 rounded-full">प्रेषक</span>
+                <h4 class="font-rozha text-2xl sm:text-3xl text-amber-300 mt-3">श्री कमलेश सिंह</h4>
+                <p class="text-xs sm:text-sm text-amber-100/90 mt-1">
+                    ग्राम - बहैरा, पो० - नसेज, थाना - कुदरा, जिला - कैमूर (बिहार)
+                </p>
+
+                <!-- Clickable Contact Numbers -->
+                <div class="mt-4 pt-4 border-t border-amber-400/30 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href="tel:+919473244894" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-red-950 font-bold text-sm px-5 py-2.5 rounded-xl shadow transition">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>9473244894</span>
+                    </a>
+                    <a href="tel:+917004262477" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-red-950 font-bold text-sm px-5 py-2.5 rounded-xl shadow transition">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>7004262477</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Family Lists Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <!-- Vinit -->
+                <div class="bg-amber-50/80 border border-amber-300 rounded-2xl p-4 text-center">
+                    <h5 class="font-rozha text-xl text-red-900 border-b border-amber-300 pb-1.5 mb-2.5">विनीत</h5>
+                    <p class="text-sm text-stone-800 leading-relaxed font-medium">
+                        कपिलमुनी सिंह, नारदमुनी सिंह, कृष्णनंदन सिंह
+                    </p>
+                </div>
+
+                <!-- Swagatankanshi -->
+                <div class="bg-amber-50/80 border border-amber-300 rounded-2xl p-4 text-center">
+                    <h5 class="font-rozha text-xl text-red-900 border-b border-amber-300 pb-1.5 mb-2.5">स्वागताकांक्षी</h5>
+                    <p class="text-sm text-stone-800 leading-relaxed font-medium">
+                        बृजनंदन सिंह, अखिलेश्वरनारायण सिंह,<br>मनोज सिंह, दीपक सिंह
+                    </p>
+                </div>
+            </div>
+
+            <!-- Darshanabhilashi -->
+            <div class="bg-amber-50/80 border border-amber-300 rounded-2xl p-5 text-center">
+                <h5 class="font-rozha text-xl text-red-900 border-b border-amber-300 pb-1.5 mb-3">दर्शनाभिलाषी</h5>
+                <p class="text-sm text-stone-800 leading-relaxed font-medium">
+                    कृष्णमुरारी सिंह, नितीश कुमार, सुशांत, सुमीत, विकास, अमरनाथ, अभिमन्यु, शैलेन्द्र, संजीव, शैलेश, शिवम, सुधांशु, रजनीश, आदित्य एवं <strong>समस्त पटेल परिवार !</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer Blessing -->
+        <footer class="text-center text-xs text-stone-600 mt-6">
+            <p class="font-semibold text-red-900">आपका आगमन हमारे लिए सौभाग्य का विषय होगा।</p>
+            <p class="mt-1 opacity-75">|| शुभ विवाह निमंत्रण - आलोक संग प्रतिमा ||</p>
+        </footer>
+
+    </main>
+
+    <!-- Sticky Bottom Action Bar for WhatsApp Sharing & Copy -->
+    <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t-2 border-amber-400 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]">
+        <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
+            <button onclick="shareOnWhatsApp()" class="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold text-sm sm:text-base py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition transform active:scale-95 cursor-pointer">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span>WhatsApp पर निमंत्रण भेजें</span>
+            </button>
+
+            <button onclick="copyInviteText()" title="निमंत्रण संदेश कॉपी करें" class="bg-amber-100 hover:bg-amber-200 text-red-950 border border-amber-400 font-bold text-sm py-3 px-4 rounded-xl shadow flex items-center justify-center gap-2 transition cursor-pointer">
+                <i class="fa-regular fa-copy"></i>
+                <span class="hidden sm:inline">कॉपी करें</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification (No alert() used) -->
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-red-950 text-amber-200 border border-amber-400 px-5 py-2.5 rounded-full text-sm font-semibold shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300">
+        निमंत्रण संदेश कॉपी हो गया है!
+    </div>
+
+    <script>
+        // 1. Open Envelope Curtain & Optionally Start Gentle Chime
+        function openInvitation() {
+            const curtain = document.getElementById('welcome-curtain');
+            curtain.classList.add('opened');
+            playAuspiciousChime();
+        }
+
+        // 2. Web Audio API Gentle Auspicious Bell/Chime (No external audio URLs needed)
+        let audioCtx = null;
+        let isPlaying = false;
+        let chimeInterval = null;
+
+        function playBellNote(freq, delay, duration) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime + delay);
+            gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + delay + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + delay + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(audioCtx.currentTime + delay);
+            osc.stop(audioCtx.currentTime + delay + duration);
+        }
+
+        function playSequence() {
+            // Peaceful Indian pentatonic (Raag Bhupali: Sa Re Ga Pa Dha Sa) chime
+            const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+            notes.forEach((freq, idx) => {
+                playBellNote(freq, idx * 0.45, 1.8);
+            });
+        }
+
+        function playAuspiciousChime() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                isPlaying = true;
+                updateMusicIcon();
+                playSequence();
+                if (!chimeInterval) {
+                    chimeInterval = setInterval(() => {
+                        if (isPlaying) playSequence();
+                    }, 5000);
+                }
+            } catch (e) {
+                console.log("Audio requires user interaction");
+            }
+        }
+
+        function toggleAudio() {
+            if (!isPlaying) {
+                playAuspiciousChime();
+            } else {
+                isPlaying = false;
+                updateMusicIcon();
+            }
+        }
+
+        function updateMusicIcon() {
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                icon.className = 'fa-solid fa-volume-high';
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+            }
+        }
+
+        // 3. Falling Marigold & Rose Petals Generator
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            const colors = ['#f59e0b', '#fbbf24', '#e11d48', '#f43f5e', '#d97706'];
+            const petalCount = 22;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                const size = Math.random() * 10 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.animationDuration = `${Math.random() * 7 + 6}s`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        // 4. Live Countdown Timer to December 7, 2026 (2:00 PM Barat Departure)
+        function updateCountdown() {
+            const weddingDate = new Date('2026-12-07T14:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML =
+                    '<div class="col-span-4 text-amber-300 font-bold text-lg py-2">शुभ विवाह संपन्न! नवदंपत्ति को हार्दिक शुभकामनाएँ!</div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        // 5. WhatsApp Share Message & Link
+        function getInvitationMessage() {
+            const pageUrl = window.location.href;
+            return `|| श्री गणेशाय नमः ||\n\n` +
+                   `🙏 *सादर विवाह निमंत्रण* 🙏\n\n` +
+                   `बाबा विश्वनाथ जी एवं माँ मुण्डेश्वरी की असीम अनुकम्पा से हमारे यहाँ *चिरं. आलोक कुमार* संग *आयु. कुमारी प्रतिमा* का शुभ विवाह सुनिश्चित हुआ है।\n\n` +
+                   `📅 *मांगलिक कार्यक्रम:*\n` +
+                   `• *शुभ तिलकोत्सव:* 02 दिसंबर 2026 (बुधवार)\n` +
+                   `• *शुभ हल्दी:* 04 दिसंबर 2026 (शुक्रवार)\n` +
+                   `• *शुभ विवाह:* 07 दिसंबर 2026 (सोमवार)\n` +
+                   `• *वधू आगमन:* 08 दिसंबर 2026 (मंगलवार)\n\n` +
+                   `📍 *निवास स्थान:* ग्राम - बहैरा, पो० - नसेज, थाना - कुदरा, जिला - कैमूर (बिहार)\n` +
+                   `📞 *संपर्क:* 9473244894, 7004262477\n\n` +
+                   `✨ *डिजिटल निमंत्रण कार्ड देखने के लिए नीचे दिए गए लिंक पर क्लिक करें:*\n${pageUrl}\n\n` +
+                   `— *प्रेषक: कमलेश सिंह एवं समस्त पटेल परिवार*`;
+        }
+
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent(getInvitationMessage());
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        function copyInviteText() {
+            const textArea = document.createElement('textarea');
+            textArea.value = getInvitationMessage();
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2500);
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            createPetals();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        };
+    </script>
+</body>
+</html>
